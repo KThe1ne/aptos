@@ -6,8 +6,8 @@ address treasury2{
         // use std::string;
 
         struct Coin<phantom CoinType> has key { 
-                amount: u64 
-            }
+            amount: u64 
+        }
 
         public fun initialize<CoinType>(account: &signer) {
             move_to(account, Coin<CoinType>{ amount: 1000 });
@@ -36,7 +36,7 @@ address treasury2{
 
             // ***Deposit Coin to treasury
             // Create Coin with amount equal to the withdrawn amount 
-            let account_withdraw = Coin<CoinType>{amount: amount+20};
+            let account_withdraw = Coin<CoinType>{amount: amount};
 
 
             let treasury_balance = &mut borrow_global_mut<Coin<CoinType>>(@treasury2).amount;
