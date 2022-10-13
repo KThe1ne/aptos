@@ -99,18 +99,10 @@ address treasury{
         use aptos_framework::managed_coin;
         #[test_only]
         use std::debug;
-        /* #[test_only]
-        use std::string; */
         #[test_only]
         struct FakeMoneyA {}
         #[test_only]
         struct FakeMoneyB {}        
-
-        /* #[test(root = @treasury)]
-        public fun treasury_balance<CoinType>() : &coin::Coin<CoinType> acquires CoinTreasury{
-            let coin_treasury = borrow_global_mut<CoinTreasury<CoinType>>(@treasury);
-            &coin_treasury.coin
-        } */
 
         #[test(root = @treasury, account = @0x2, boom = @0x03)]
         public fun run_it_up(root: &signer, account: &signer, boom: &signer) acquires WithdrawCapUsers, CoinTreasury{
@@ -156,7 +148,7 @@ address treasury{
             debug::print<u64>(&balance<FakeMoneyA>(account_addr));
             // assert!(balance<FakeMoney>(account_addr) == 100, 4);
             debug::print<u64>(&coin::value(&borrow_global_mut<CoinTreasury<FakeMoneyA>>(@treasury).coin));
-            
+
             withdraw_from_treasury<FakeMoneyA>(boom, 60);
         }
 
